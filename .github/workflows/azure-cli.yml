@@ -1,0 +1,22 @@
+on: [push]
+name: azure-powershell
+
+jobs:
+  azure-job:
+    runs-on: ubuntu-18.04
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
+    steps:
+
+      - name: Az Login
+        uses: azure/cli@v1
+        with:
+          azcliversion: latest
+          inlineScript: |
+            az login --service-principal --username ${{ secrets.SPN_USER }} --password ${{ secrets.SPN_PASSWORD }} --tenant ${{ secrets.TENANT_ID }} --allow-no-subscriptions
+
+      - name: Run Az CLI script
+        uses: azure/cli@v1
+        with:
+          inlineScript: |
+            az account show
+          azcliversion: latest
