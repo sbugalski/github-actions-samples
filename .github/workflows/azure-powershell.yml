@@ -4,9 +4,10 @@ name: azure-powershell
 jobs:
   azure-job:
     runs-on: ubuntu-18.04
+    if: "! contains(toJSON(github.event.commits.*.message), '[skip-ci]')"
     steps:
 
-      - name: Az Login with pwsh
+      - name: Connect-AzAccount
         uses: azure/powershell@v1
         with:
           inlineScript: |
