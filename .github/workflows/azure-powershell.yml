@@ -2,7 +2,7 @@ on: [push]
 name: azure-powershell
 
 jobs:
-  create-subscription:
+  azure-job:
     runs-on: ubuntu-18.04
     steps:
 
