@@ -1,0 +1,22 @@
+on: [push]
+name: azure-powershell
+
+jobs:
+  create-subscription:
+    runs-on: ubuntu-18.04
+    steps:
+
+      - name: Az Login with pwsh
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            $AzCred = New-Object System.Management.Automation.PSCredential -ArgumentList "${{ secrets.SPN_USER }}", ( "${{ secrets.SPN_PASSWORD }}" | ConvertTo-SecureString -AsPlainText -Force)
+            Connect-AzAccount -ServicePrincipal -Credential $AzCred -Tenant ${{ secrets.TENANT_ID }}
+          azPSVersion: latest
+
+      - name: Run Azure PowerShell script
+        uses: azure/powershell@v1
+        with:
+          inlineScript: |
+            Get-AzContext
+          azPSVersion: latest
