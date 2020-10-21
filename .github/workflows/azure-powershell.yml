@@ -8,7 +8,7 @@ jobs:
     steps:
 
       - name: Connect-AzAccount
-        uses: azure/powershell@v1
+        uses: azure/powershell@latest
         with:
           inlineScript: |
             $AzCred = New-Object System.Management.Automation.PSCredential -ArgumentList "${{ secrets.SPN_CLIENT_ID }}", ( "${{ secrets.SPN_CLIENT_SECRET }}" | ConvertTo-SecureString -AsPlainText -Force)
@@ -16,7 +16,7 @@ jobs:
           azPSVersion: latest
 
       - name: Run Azure PowerShell script
-        uses: azure/powershell@v1
+        uses: azure/powershell@latest
         with:
           inlineScript: |
             Get-AzContext
