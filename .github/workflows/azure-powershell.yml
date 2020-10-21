@@ -8,7 +8,7 @@ jobs:
     steps:
 
       - name: Connect-AzAccount
-        uses: azure/powershell@vl
+        uses: Azure/powershell@v1
         with:
           inlineScript: |
             $AzCred = New-Object System.Management.Automation.PSCredential -ArgumentList "${{ secrets.SPN_CLIENT_ID }}", ( "${{ secrets.SPN_CLIENT_SECRET }}" | ConvertTo-SecureString -AsPlainText -Force)
